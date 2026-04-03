@@ -1,0 +1,38 @@
+.title-container {
+  padding: 10px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-container h1 {
+  font-size: 4rem;
+}
+
+.title-container h2 {
+  margin-top: 10px;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.btn-capture-container {
+  display: flex;
+  justify-content: end;
+  padding: 10px 20px;
+}
+
+.btn-capture-container button {
+  border: none;
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  border-radius: 10px;
+  background-color: var(--primary);
+  color: #ffff;
+  transition: 0.2s ease;
+  &:hover {
+    background-color: rgb(255, 255, 255);
+    color: var(--primary);
+  }
+}

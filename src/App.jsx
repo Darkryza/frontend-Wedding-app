@@ -7,6 +7,7 @@ function App() {
 
   const [showCamera, setShowCamera] = useState(false);
   const [image, setImage] = useState(null);
+  const [facingMode, setFacingMode] = useState("user"); // "user" = depan, "environment" = belakang
 
   // buka camera
   const startCamera = async () => {
@@ -14,7 +15,7 @@ function App() {
 
     const stream = await navigator.mediaDevices.getUserMedia({
       video: {
-        facingMode: "user", // guna camera belakang
+        facingMode, // ikut state
       },
       audio: false,
     });
@@ -31,8 +32,11 @@ function App() {
     canvas.height = video.videoHeight;
 
     const ctx = canvas.getContext("2d");
-    ctx.translate(canvas.width, 0);
-    ctx.scale(-1, 1);
+    // mirror kalau camera depan
+    if (facingMode === "user") {
+      ctx.translate(canvas.width, 0);
+      ctx.scale(-1, 1);
+    }
     ctx.drawImage(video, 0, 0);
 
     const photo = canvas.toDataURL("image/png");
@@ -48,6 +52,15 @@ function App() {
     if (stream) {
       stream.getTracks().forEach((track) => track.stop());
     }
+  };
+
+  // switch camera depan/belakang
+  const switchCamera = () => {
+    stopCamera();
+    setFacingMode((prev) => (prev === "user" ? "environment" : "user"));
+    setTimeout(() => {
+      startCamera();
+    }, 200); // sikit delay supaya stream baru start
   };
 
   return (
@@ -66,7 +79,10 @@ function App() {
         {showCamera && (
           <div className="camera-container">
             <video ref={videoRef} autoPlay playsInline />
-            <button onClick={takePhoto}>📸 Capture</button>
+            <div className="camera-buttons">
+              <button onClick={takePhoto}>📸 Capture</button>
+              <button onClick={switchCamera}>🔄 Switch Camera</button>
+            </div>
           </div>
         )}
 
@@ -102,42 +118,3 @@ function App() {
 }
 
 export default App;
-
-// import "./App.css";
-
-// function App() {
-//   return (
-//     <>
-//       <div className="container">
-//         <div className="title-container">
-//           <h1>Fanisa</h1>
-//           <h2>Wedding Amir & Lia</h2>
-//         </div>
-//         <div className="btn-capture-container">
-//           <button>Take Photo</button>
-//         </div>
-//         <div className="contents-container">
-//           <div className="content">
-//             <div className="img">
-//               <img
-//                 src="https://comptonhouseoffashion.co.uk/content/uploads/2019/11/Picture1-1.png"
-//                 alt="image"
-//               />
-//             </div>
-//             <div className="text">
-//               <h2>title</h2>
-//               <p>
-//                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
-//                 Praesentium amet dolor odio consectetur quia rem temporibus,
-//                 ipsam ipsum ex provident magni nihil eligendi nesciunt placeat
-//                 consequuntur quasi neque, vero quibusdam.
-//               </p>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
-
-// export default App;

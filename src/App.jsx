@@ -7,7 +7,7 @@ function App() {
 
   const [showCamera, setShowCamera] = useState(false);
   const [image, setImage] = useState(null);
-  const [facingMode, setFacingMode] = useState("user"); // "user" = depan, "environment" = belakang
+  const [facingMode, setFacingMode] = useState("environment"); // "user" = depan, "environment" = belakang
 
   // buka camera
   const startCamera = async () => {
@@ -57,7 +57,7 @@ function App() {
   // switch camera depan/belakang
   const switchCamera = () => {
     stopCamera();
-    setFacingMode((prev) => (prev === "user" ? "environment" : "user"));
+    setFacingMode((prev) => (prev === "environment" ? "user" : "environment"));
     setTimeout(() => {
       startCamera();
     }, 200); // sikit delay supaya stream baru start

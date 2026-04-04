@@ -72,7 +72,9 @@ function App() {
         {image && (
           <div className="preview">
             <h3>Preview:</h3>
-            <img src={image} alt="captured" />
+            <div className="img-container">
+              <img src={image} alt="captured" />
+            </div>
           </div>
         )}
 

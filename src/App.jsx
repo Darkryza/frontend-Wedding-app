@@ -82,7 +82,7 @@ function App() {
               ref={videoRef}
               autoPlay
               playsInline
-              className={facingMode === "user" ? "mirror" : ""}
+              className={facingMode === "environment" ? "mirror" : ""}
             />
             <div className="camera-buttons">
               <button onClick={takePhoto}>📸 Capture</button>

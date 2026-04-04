@@ -137,24 +137,18 @@
   }
 
   .preview {
-    width: 100%;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 0 20px; /* 🔥 padding kiri kanan */
   }
 
   .preview .img-container {
     width: 100%;
     height: 100%;
-    margin: 20px;
-    border: 10px;
   }
 
   .preview .img-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 10px;
   }
 }

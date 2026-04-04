@@ -14,7 +14,7 @@ function App() {
 
     const stream = await navigator.mediaDevices.getUserMedia({
       video: {
-        facingMode: "environment", // guna camera belakang
+        facingMode: "user", // guna camera belakang
       },
       audio: false,
     });

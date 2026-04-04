@@ -127,14 +127,29 @@
     transform: scaleX(-1);
   }
 
-  .camera-container button {
+  .camera-container .camera-buttons {
     position: absolute;
     bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+  }
+
+  .camera-container .camera-buttons button {
     padding: 15px 20px;
     border-radius: 50%;
     font-size: 18px;
+    border: none;
+    background-color: var(--primary);
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .camera-container .camera-buttons button:active {
+    background-color: #fff;
+    color: var(--primary);
   }
 
   .preview {

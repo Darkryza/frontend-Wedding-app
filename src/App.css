@@ -128,7 +128,7 @@
 
   .camera-container button {
     position: absolute;
-    bottom: 5%;
+    bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
     padding: 15px 20px;

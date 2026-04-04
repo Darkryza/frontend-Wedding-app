@@ -78,7 +78,12 @@ function App() {
         {/* CAMERA VIEW */}
         {showCamera && (
           <div className="camera-container">
-            <video ref={videoRef} autoPlay playsInline />
+            <video
+              ref={videoRef}
+              autoPlay
+              playsInline
+              className={facingMode === "user" ? "mirror" : ""}
+            />
             <div className="camera-buttons">
               <button onClick={takePhoto}>📸 Capture</button>
               <button onClick={switchCamera}>🔄 Switch Camera</button>

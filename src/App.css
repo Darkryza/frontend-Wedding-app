@@ -126,7 +126,7 @@
     object-fit: cover;
   }
 
-  .mirror {
+  .camera-container video .mirror {
     transform: scaleX(-1);
   }
 

@@ -1,28 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Ephesis&display=swap");
 
-:root {
-  --primary: #a6a185;
-}
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: 0;
   font-family: "Ephesis";
-}
-
-@media screen and (max-width: 768px) {
-  .container {
-    min-height: 100vh;
-    min-width: 100vw;
-    position: relative;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url(./assets/background.jpg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-  }
 }

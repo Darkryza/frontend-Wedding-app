@@ -22,8 +22,8 @@ function Submit() {
         <h1>Berikan Ucapan buat pengantin</h1>
       </div>
       <form className="submit-form-container">
-        <input type="text" name="name" placeholder="Name" />
-        <label htmlFor="ucapan">Ucapan</label>
+        <input type="text" name="name" placeholder="Tulis nama anda di sini" />
+        {/* <label htmlFor="ucapan">Ucapan</label> */}
         <textarea
           name="ucapan"
           id="ucapan"

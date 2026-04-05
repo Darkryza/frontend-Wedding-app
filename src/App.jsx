@@ -55,7 +55,7 @@ function App() {
   // switch camera depan/belakang
   const switchCamera = () => {
     stopCamera();
-    setFacingMode((prev) => (prev === "environment" ? "user" : "environment"));
+    setFacingMode((prev) => (prev === "user" ? "environment" : "user"));
 
     setTimeout(() => {
       startCamera();
@@ -81,7 +81,7 @@ function App() {
               ref={videoRef}
               autoPlay
               playsInline
-              className={facingMode === "environment" ? "mirror" : ""}
+              className={facingMode === "user" ? "mirror" : ""}
             />
             <div className="camera-buttons">
               <button onClick={takePhoto}>Capture</button>

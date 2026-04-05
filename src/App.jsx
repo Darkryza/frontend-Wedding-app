@@ -58,9 +58,10 @@ function App() {
   const switchCamera = () => {
     stopCamera();
     setFacingMode((prev) => (prev === "environment" ? "user" : "environment"));
-    setTimeout(() => {
-      startCamera();
-    }, 200); // sikit delay supaya stream baru start
+    startCamera();
+    // setTimeout(() => {
+    //   startCamera();
+    // }, 200); // sikit delay supaya stream baru start
   };
 
   return (

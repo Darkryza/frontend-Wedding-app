@@ -42,7 +42,7 @@
     border: none;
     border-radius: 10px;
     background-color: var(--primary);
-    color: white;
+    color: black;
   }
 
   .submit-container .submit-form-container input::placeholder,

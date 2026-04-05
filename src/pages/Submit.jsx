@@ -9,11 +9,11 @@ function Submit() {
     <div className="submit-container">
       {image ? (
         <div className="img-container">
-          {/* <img src={image} alt="captured" /> */}
-          <img
+          <img src={image} alt="captured" />
+          {/* <img
             src="https://comptonhouseoffashion.co.uk/content/uploads/2019/11/Picture1-1.png"
             alt="captured"
-          />
+          /> */}
         </div>
       ) : (
         <p>No image found. Please go back and take a photo.</p>

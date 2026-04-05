@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
@@ -7,23 +7,55 @@ function App() {
 
   const [showCamera, setShowCamera] = useState(false);
   const [image, setImage] = useState(null);
-  const [facingMode, setFacingMode] = useState("environment"); // "user" = depan, "environment" = belakang
+  const [facingMode, setFacingMode] = useState("environment");
 
-  // buka camera
+  // START CAMERA (first time only)
   const startCamera = async () => {
-    setShowCamera(true);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode },
+        audio: false,
+      });
 
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: {
-        facingMode, // ikut state
-      },
-      audio: false,
-    });
-
-    videoRef.current.srcObject = stream;
+      videoRef.current.srcObject = stream;
+      setShowCamera(true); // ✅ only here
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  // tangkap gambar
+  // RESTART CAMERA (NO setState)
+  const restartCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode },
+        audio: false,
+      });
+
+      videoRef.current.srcObject = stream;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // STOP CAMERA
+  const stopCamera = () => {
+    const stream = videoRef.current?.srcObject;
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop());
+      videoRef.current.srcObject = null;
+    }
+  };
+
+  // EFFECT untuk switch camera
+  useEffect(() => {
+    if (showCamera) {
+      stopCamera();
+      restartCamera();
+    }
+  }, [facingMode, showCamera]);
+
+  // CAPTURE
   const takePhoto = () => {
     const video = videoRef.current;
     const canvas = canvasRef.current;
@@ -32,11 +64,12 @@ function App() {
     canvas.height = video.videoHeight;
 
     const ctx = canvas.getContext("2d");
-    // mirror kalau camera depan
+
     if (facingMode === "user") {
       ctx.translate(canvas.width, 0);
       ctx.scale(-1, 1);
     }
+
     ctx.drawImage(video, 0, 0);
 
     const photo = canvas.toDataURL("image/png");
@@ -46,22 +79,9 @@ function App() {
     setShowCamera(false);
   };
 
-  // stop camera
-  const stopCamera = () => {
-    const stream = videoRef.current.srcObject;
-    if (stream) {
-      stream.getTracks().forEach((track) => track.stop());
-    }
-  };
-
-  // switch camera depan/belakang
+  // SWITCH CAMERA
   const switchCamera = () => {
-    stopCamera();
     setFacingMode((prev) => (prev === "environment" ? "user" : "environment"));
-    startCamera();
-    // setTimeout(() => {
-    //   startCamera();
-    // }, 200); // sikit delay supaya stream baru start
   };
 
   return (
@@ -76,15 +96,15 @@ function App() {
           <button onClick={startCamera}>Take Photo</button>
         </div>
 
-        {/* CAMERA VIEW */}
         {showCamera && (
           <div className="camera-container">
             <video
               ref={videoRef}
               autoPlay
               playsInline
-              className={facingMode === "environment" ? "mirror" : ""}
+              className={facingMode === "user" ? "mirror" : ""}
             />
+
             <div className="camera-buttons">
               <button onClick={takePhoto}>📸 Capture</button>
               <button onClick={switchCamera}>🔄 Switch Camera</button>
@@ -92,7 +112,6 @@ function App() {
           </div>
         )}
 
-        {/* PREVIEW IMAGE */}
         {image && (
           <div className="preview">
             <h3>Preview:</h3>
@@ -103,21 +122,6 @@ function App() {
         )}
 
         <canvas ref={canvasRef} style={{ display: "none" }} />
-
-        <div className="contents-container">
-          <div className="content">
-            <div className="img">
-              <img
-                src="https://comptonhouseoffashion.co.uk/content/uploads/2019/11/Picture1-1.png"
-                alt="image"
-              />
-            </div>
-            <div className="text">
-              <h2>title</h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-          </div>
-        </div>
       </div>
     </>
   );

@@ -1,13 +1,12 @@
-.submit-container {
-  width: 100%;
-  height: auto;
-}
-.submit-container .img-container {
-  width: 100%;
-  height: auto;
-  padding: 10px;
-}
-.submit-container .img-container img {
-  width: 100%;
-  height: 100%;
+@media screen and (max-width: 768px) {
+  .submit-container {
+    width: 100%;
+    height: auto;
+  }
+  .submit-container .img-container {
+    padding: 10px;
+  }
+  .submit-container .img-container img {
+    width: 100%;
+  }
 }

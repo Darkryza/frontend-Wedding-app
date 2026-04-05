@@ -6,13 +6,18 @@ function Submit() {
   const image = location.state?.image; // gambar dari Main page
 
   return (
-    <div>
-      <h1>Submit Page</h1>
-      {image ? (
-        <img src={image} alt="captured" />
-      ) : (
-        <p>No image found. Please go back and take a photo.</p>
-      )}
+    <div className="submit-container">
+      <div className="img-container">
+        {image ? (
+          // <img src={image} alt="captured" />
+          <img
+            src="https://comptonhouseoffashion.co.uk/content/uploads/2019/11/Picture1-1.png"
+            alt="captured"
+          />
+        ) : (
+          <p>No image found. Please go back and take a photo.</p>
+        )}
+      </div>
     </div>
   );
 }

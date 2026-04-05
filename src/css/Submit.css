@@ -1,5 +1,13 @@
+.submit-container {
+  width: 100%;
+  height: auto;
+}
 .submit-container .img-container {
   width: 100%;
   height: auto;
   padding: 10px;
+}
+.submit-container .img-container img {
+  width: 100%;
+  height: 100%;
 }

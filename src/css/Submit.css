@@ -8,5 +8,51 @@
   }
   .submit-container .img-container img {
     width: 100%;
+    height: 200px;
+    border-radius: 10px;
+  }
+
+  .submit-container .title {
+    padding: 10px;
+  }
+
+  .submit-container .title::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: black;
+    margin: 5px auto 0 auto; /* top spacing + center */
+  }
+
+  .submit-container .submit-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .submit-container .submit-form-container input,
+  .submit-container .submit-form-container textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--primary);
+    color: white;
+  }
+
+  .submit-container .submit-form-container input::placeholder,
+  .submit-container .submit-form-container textarea::placeholder {
+    color: white;
+  }
+
+  .submit-container .submit-form-container label {
+    align-self: flex-start;
+    font-size: 2rem;
+    font-weight: bolder;
   }
 }

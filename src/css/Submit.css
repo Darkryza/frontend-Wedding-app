@@ -43,11 +43,13 @@
     border-radius: 10px;
     background-color: var(--primary);
     color: black;
+    font-family: "Quintessential";
   }
 
   .submit-container .submit-form-container input::placeholder,
   .submit-container .submit-form-container textarea::placeholder {
     color: white;
+    font-family: "Ephesis";
   }
 
   .submit-container .submit-form-container label {

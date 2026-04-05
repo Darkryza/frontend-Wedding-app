@@ -141,7 +141,7 @@
 
   .camera-container .camera-buttons button {
     padding: 15px 20px;
-    border-radius: 50%;
+    border-radius: 10px;
     font-size: 18px;
     border: none;
     background-color: var(--primary);

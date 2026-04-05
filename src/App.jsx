@@ -22,7 +22,6 @@ function App() {
     videoRef.current.srcObject = stream;
   };
 
-  // tangkap gambar
   const takePhoto = () => {
     const video = videoRef.current;
     const canvas = canvasRef.current;
@@ -85,8 +84,8 @@ function App() {
               className={facingMode === "environment" ? "mirror" : ""}
             />
             <div className="camera-buttons">
-              <button onClick={takePhoto}>📸 Capture</button>
-              <button onClick={switchCamera}>🔄 Switch Camera</button>
+              <button onClick={takePhoto}>Capture</button>
+              <button onClick={switchCamera}>Switch Camera</button>
             </div>
           </div>
         )}

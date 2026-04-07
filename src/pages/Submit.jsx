@@ -53,10 +53,7 @@ function Submit() {
     formData.append("ucapan", data.ucapan);
 
     try {
-      const res = await axios.post(
-        "https://backend-wedding-app-three.vercel.app/addUcapan",
-        formData,
-      );
+      const res = await axios.post("http://localhost:5211/addUcapan", formData);
 
       if (res.data.status) {
         alert(res.data.message);

@@ -52,9 +52,17 @@
     font-family: "Ephesis";
   }
 
-  .submit-container .submit-form-container label {
-    align-self: flex-start;
-    font-size: 2rem;
+  .submit-container .submit-form-container button {
+    padding: 10px;
+    border: none;
+    background-color: var(--primary);
+    border-radius: 10px;
     font-weight: bolder;
+    transition: 0.3s ease;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .submit-container .submit-form-container button:active {
+    background-color: var(--secondary);
   }
 }

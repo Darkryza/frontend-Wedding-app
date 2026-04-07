@@ -67,7 +67,7 @@ function Main() {
   };
 
   return (
-    <div className="container">
+    <div className="main-container">
       <div className="title-container">
         <h1>Fanisa</h1>
         <h2>Wedding Amir & Lia</h2>

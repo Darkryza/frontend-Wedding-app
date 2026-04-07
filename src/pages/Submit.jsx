@@ -32,7 +32,6 @@ function Submit() {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    console.log(value);
     setData((prev) => ({
       ...prev,
       [name]: files ? files[0] : value,

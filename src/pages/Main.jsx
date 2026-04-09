@@ -16,7 +16,9 @@ function Main() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:5211/getData");
+        const res = await axios.get(
+          "https://backend-wedding-app-three.vercel.app/getData",
+        );
         if (res.data.status) {
           setData(res.data.value);
         } else {
@@ -32,14 +34,18 @@ function Main() {
   const startCamera = async () => {
     setShowCamera(true);
 
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: {
-        facingMode,
-      },
-      audio: false,
-    });
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode,
+        },
+        audio: false,
+      });
 
-    videoRef.current.srcObject = stream;
+      videoRef.current.srcObject = stream;
+    } catch (error) {
+      console.log(`Camera Error: ${error}`);
+    }
   };
 
   const takePhoto = () => {

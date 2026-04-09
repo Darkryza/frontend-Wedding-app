@@ -10,7 +10,7 @@ function Submit() {
   console.log(image);
 
   const [data, setData] = useState({
-    name: "",
+    nama: "",
     ucapan: "",
   });
 
@@ -31,10 +31,10 @@ function Submit() {
   };
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
+    const { nama, value, files } = e.target;
     setData((prev) => ({
       ...prev,
-      [name]: files ? files[0] : value,
+      [nama]: files ? files[0] : value,
     }));
   };
 
@@ -48,7 +48,7 @@ function Submit() {
     console.log(imageFile);
 
     formData.append("image", imageFile);
-    formData.append("nama", data.name);
+    formData.append("nama", data.nama);
     formData.append("ucapan", data.ucapan);
 
     try {
@@ -83,9 +83,10 @@ function Submit() {
       <form className="submit-form-container" onSubmit={handleSubmit}>
         <input
           type="text"
-          name="name"
+          name="nama"
           placeholder="Tulis nama anda di sini"
           onChange={handleChange}
+          required
         />
 
         <textarea
@@ -93,6 +94,7 @@ function Submit() {
           id="ucapan"
           placeholder="Berikan ucapan anda di sini"
           onChange={handleChange}
+          required
         ></textarea>
         <button type="submit">Hantar</button>
       </form>

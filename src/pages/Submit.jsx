@@ -31,10 +31,10 @@ function Submit() {
   };
 
   const handleChange = (e) => {
-    const { nama, value, files } = e.target;
+    const { name, value, files } = e.target;
     setData((prev) => ({
       ...prev,
-      [nama]: files ? files[0] : value,
+      [name]: files ? files[0] : value,
     }));
   };
 

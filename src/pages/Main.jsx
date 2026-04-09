@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Main.css";
+import axios from "axios";
 
 function Main() {
   const navigate = useNavigate();
@@ -10,6 +11,23 @@ function Main() {
   const [showCamera, setShowCamera] = useState(false);
   const [image, setImage] = useState(null);
   const [facingMode, setFacingMode] = useState("environment");
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("http://localhost:5211/getData");
+        if (res.data.status) {
+          setData(res.data.value);
+        } else {
+          alert(res.data.message);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
 
   const startCamera = async () => {
     setShowCamera(true);
@@ -48,7 +66,6 @@ function Main() {
     navigate("/submit", { state: { image: photo } });
   };
 
-  // stop camera
   const stopCamera = () => {
     const stream = videoRef.current.srcObject;
     if (stream) {
@@ -56,7 +73,6 @@ function Main() {
     }
   };
 
-  // switch camera depan/belakang
   const switchCamera = () => {
     stopCamera();
     setFacingMode((prev) => (prev === "user" ? "environment" : "user"));
@@ -77,7 +93,6 @@ function Main() {
         <button onClick={startCamera}>Take Photo</button>
       </div>
 
-      {/* CAMERA VIEW */}
       {showCamera && (
         <div className="camera-container">
           <video ref={videoRef} autoPlay playsInline />
@@ -88,7 +103,6 @@ function Main() {
         </div>
       )}
 
-      {/* PREVIEW IMAGE */}
       {image && (
         <div className="preview">
           <h3>Preview:</h3>
@@ -101,18 +115,19 @@ function Main() {
       <canvas ref={canvasRef} style={{ display: "none" }} />
 
       <div className="contents-container">
-        <div className="content">
-          <div className="img">
-            <img
-              src="https://comptonhouseoffashion.co.uk/content/uploads/2019/11/Picture1-1.png"
-              alt="image"
-            />
-          </div>
-          <div className="text">
-            <h2>title</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-          </div>
-        </div>
+        {data.map((item) => {
+          return (
+            <div className="content" key={item.id}>
+              <div className="img">
+                <img src={item.image_url} alt="image" />
+              </div>
+              <div className="text">
+                <h2>{item.nama}</h2>
+                <p>{item.ucapan}</p>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

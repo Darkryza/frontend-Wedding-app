@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Main.css";
 import axios from "axios";
@@ -13,6 +14,7 @@ function Main() {
   const [facingMode, setFacingMode] = useState("environment");
   const [data, setData] = useState([]);
 
+  // fetch data
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,22 +33,42 @@ function Main() {
     fetchData();
   }, []);
 
-  const startCamera = async () => {
-    setShowCamera(true);
+  // 🔥 AUTO START CAMERA bila facingMode berubah
+  useEffect(() => {
+    if (showCamera) {
+      startCamera();
+    }
+  }, [showCamera, startCamera, stopCamera]);
 
+  const startCamera = useCallback(async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: {
-          facingMode,
-        },
-        audio: false,
-      });
+      stopCamera();
 
-      videoRef.current.srcObject = stream;
+      let stream;
+
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: { exact: facingMode },
+          },
+          audio: false,
+        });
+      } catch {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: facingMode,
+          },
+          audio: false,
+        });
+      }
+
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+      }
     } catch (error) {
       console.log(`Camera Error: ${error}`);
     }
-  };
+  }, [facingMode, stopCamera]);
 
   const takePhoto = () => {
     const video = videoRef.current;
@@ -56,11 +78,13 @@ function Main() {
     canvas.height = video.videoHeight;
 
     const ctx = canvas.getContext("2d");
-    // mirror kalau camera depan
+
+    // ✅ fix mirror untuk selfie
     if (facingMode === "user") {
       ctx.translate(canvas.width, 0);
       ctx.scale(-1, 1);
     }
+
     ctx.drawImage(video, 0, 0);
 
     const photo = canvas.toDataURL("image/png");
@@ -72,20 +96,15 @@ function Main() {
     navigate("/submit", { state: { image: photo } });
   };
 
-  const stopCamera = () => {
-    const stream = videoRef.current.srcObject;
+  const stopCamera = useCallback(() => {
+    const stream = videoRef.current?.srcObject;
     if (stream) {
       stream.getTracks().forEach((track) => track.stop());
     }
-  };
+  }, []);
 
   const switchCamera = () => {
-    stopCamera();
     setFacingMode((prev) => (prev === "user" ? "environment" : "user"));
-
-    setTimeout(() => {
-      startCamera();
-    }, 200);
   };
 
   return (
@@ -96,12 +115,18 @@ function Main() {
       </div>
 
       <div className="btn-capture-container">
-        <button onClick={startCamera}>Take Photo</button>
+        <button onClick={() => setShowCamera(true)}>Take Photo</button>
       </div>
 
       {showCamera && (
         <div className="camera-container">
-          <video ref={videoRef} autoPlay playsInline />
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            className={facingMode === "user" ? "mirror" : ""}
+          />
+
           <div className="camera-buttons">
             <button onClick={takePhoto}>Capture</button>
             <button onClick={switchCamera}>Switch Camera</button>
@@ -121,19 +146,17 @@ function Main() {
       <canvas ref={canvasRef} style={{ display: "none" }} />
 
       <div className="contents-container">
-        {data.map((item) => {
-          return (
-            <div className="content" key={item.id}>
-              <div className="img">
-                <img src={item.image_url} alt="image" />
-              </div>
-              <div className="text">
-                <h2>{item.nama}</h2>
-                <p>{item.ucapan}</p>
-              </div>
+        {data.map((item) => (
+          <div className="content" key={item.id}>
+            <div className="img">
+              <img src={item.image_url} alt="image" />
             </div>
-          );
-        })}
+            <div className="text">
+              <h2>{item.nama}</h2>
+              <p>{item.ucapan}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

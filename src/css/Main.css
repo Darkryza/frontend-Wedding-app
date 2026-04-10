@@ -32,6 +32,7 @@
   }
 
   .btn-capture-container button {
+    width: 100%;
     border: none;
     padding: 10px;
     font-family: Arial, Helvetica, sans-serif;

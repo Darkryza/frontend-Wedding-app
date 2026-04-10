@@ -41,10 +41,11 @@
     background-color: var(--primary);
     color: #ffff;
     transition: 0.2s ease;
-    &:active {
-      background-color: rgb(255, 255, 255);
-      color: var(--primary);
-    }
+  }
+
+  .btn-capture-container button:active {
+    background-color: rgb(255, 255, 255);
+    color: var(--primary);
   }
 
   .contents-container {

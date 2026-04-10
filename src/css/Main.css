@@ -115,6 +115,10 @@
     object-fit: cover;
   }
 
+  .mirror {
+    transform: scaleX(-1);
+  }
+
   .camera-container .camera-buttons {
     position: absolute;
     bottom: 10%;

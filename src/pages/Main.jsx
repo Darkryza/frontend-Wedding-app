@@ -14,31 +14,12 @@ function Main() {
   const [facingMode, setFacingMode] = useState("environment");
   const [data, setData] = useState([]);
 
-  // fetch data
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(
-          "https://backend-wedding-app-three.vercel.app/getData",
-        );
-        if (res.data.status) {
-          setData(res.data.value);
-        } else {
-          alert(res.data.message);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
-
-  // 🔥 AUTO START CAMERA bila facingMode berubah
-  useEffect(() => {
-    if (showCamera) {
-      startCamera();
+  const stopCamera = useCallback(() => {
+    const stream = videoRef.current?.srcObject;
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop());
     }
-  }, [showCamera, startCamera, stopCamera]);
+  }, []);
 
   const startCamera = useCallback(async () => {
     try {
@@ -96,16 +77,35 @@ function Main() {
     navigate("/submit", { state: { image: photo } });
   };
 
-  const stopCamera = useCallback(() => {
-    const stream = videoRef.current?.srcObject;
-    if (stream) {
-      stream.getTracks().forEach((track) => track.stop());
-    }
-  }, []);
-
   const switchCamera = () => {
     setFacingMode((prev) => (prev === "user" ? "environment" : "user"));
   };
+
+  // fetch data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          "https://backend-wedding-app-three.vercel.app/getData",
+        );
+        if (res.data.status) {
+          setData(res.data.value);
+        } else {
+          alert(res.data.message);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // 🔥 AUTO START CAMERA bila facingMode berubah
+  useEffect(() => {
+    if (showCamera) {
+      startCamera();
+    }
+  }, [showCamera, startCamera, stopCamera]);
 
   return (
     <div className="main-container">

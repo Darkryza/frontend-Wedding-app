@@ -60,7 +60,6 @@ function Main() {
 
     const ctx = canvas.getContext("2d");
 
-    // ✅ fix mirror untuk selfie
     if (facingMode === "user") {
       ctx.translate(canvas.width, 0);
       ctx.scale(-1, 1);
@@ -81,7 +80,6 @@ function Main() {
     setFacingMode((prev) => (prev === "user" ? "environment" : "user"));
   };
 
-  // fetch data
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -100,7 +98,6 @@ function Main() {
     fetchData();
   }, []);
 
-  // 🔥 AUTO START CAMERA bila facingMode berubah
   useEffect(() => {
     if (showCamera) {
       startCamera();

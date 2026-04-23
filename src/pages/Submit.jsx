@@ -7,8 +7,6 @@ function Submit() {
   const location = useLocation();
   const image = location.state?.image;
 
-  console.log(image);
-
   const [data, setData] = useState({
     nama: "",
     ucapan: "",

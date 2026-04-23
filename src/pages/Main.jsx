@@ -13,6 +13,7 @@ function Main() {
   const [image, setImage] = useState(null);
   const [facingMode, setFacingMode] = useState("environment");
   const [data, setData] = useState([]);
+  const [showSplash, setShowSplash] = useState(true);
 
   const stopCamera = useCallback(() => {
     const stream = videoRef.current?.srcObject;
@@ -104,58 +105,82 @@ function Main() {
     }
   }, [showCamera, startCamera, stopCamera]);
 
+  useEffect(() => {
+    const fadeTimer = setTimeout(() => {
+      const splash = document.querySelector(".welcoming-page");
+      if (splash) splash.classList.add("hide");
+    }, 2000);
+
+    const removeTimer = setTimeout(() => {
+      setShowSplash(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(removeTimer);
+    };
+  }, []);
+
   return (
-    <div className="main-container">
-      <div className="title-container">
-        <h1>Fanisa</h1>
-        <h2>Wedding Amir & Lia</h2>
-      </div>
-
-      <div className="btn-capture-container">
-        <button onClick={() => setShowCamera(true)}>Take Photo</button>
-      </div>
-
-      {showCamera && (
-        <div className="camera-container">
-          <video
-            ref={videoRef}
-            autoPlay
-            playsInline
-            className={facingMode === "user" ? "mirror" : ""}
-          />
-
-          <div className="camera-buttons">
-            <button onClick={takePhoto}>Capture</button>
-            <button onClick={switchCamera}>Switch Camera</button>
-          </div>
+    <>
+      <div className="main-container">
+        <div className="title-container">
+          <h1>Fanisa</h1>
+          <h2>Wedding Amir & Lia</h2>
         </div>
-      )}
 
-      {image && (
-        <div className="preview">
-          <h3>Preview:</h3>
-          <div className="img-container">
-            <img src={image} alt="captured" />
-          </div>
+        <div className="btn-capture-container">
+          <button onClick={() => setShowCamera(true)}>Take Photo</button>
         </div>
-      )}
 
-      <canvas ref={canvasRef} style={{ display: "none" }} />
+        {showCamera && (
+          <div className="camera-container">
+            <video
+              ref={videoRef}
+              autoPlay
+              playsInline
+              className={facingMode === "user" ? "mirror" : ""}
+            />
 
-      <div className="contents-container">
-        {data.map((item) => (
-          <div className="content" key={item.id}>
-            <div className="img">
-              <img src={item.image_url} alt="image" />
-            </div>
-            <div className="text">
-              <h2>{item.nama}</h2>
-              <p>{item.ucapan}</p>
+            <div className="camera-buttons">
+              <button onClick={takePhoto}>Capture</button>
+              <button onClick={switchCamera}>Switch Camera</button>
             </div>
           </div>
-        ))}
+        )}
+
+        {image && (
+          <div className="preview">
+            <h3>Preview:</h3>
+            <div className="img-container">
+              <img src={image} alt="captured" />
+            </div>
+          </div>
+        )}
+
+        <canvas ref={canvasRef} style={{ display: "none" }} />
+
+        <div className="contents-container">
+          {data.map((item) => (
+            <div className="content" key={item.id}>
+              <div className="img">
+                <img src={item.image_url} alt="image" />
+              </div>
+              <div className="text">
+                <h2>{item.nama}</h2>
+                <p>{item.ucapan}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+
+      {showSplash && (
+        <div className="welcoming-page">
+          <h1>Welcome to wedding Amir dan Lia</h1>
+        </div>
+      )}
+    </>
   );
 }
 

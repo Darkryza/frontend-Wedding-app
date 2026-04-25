@@ -1,6 +1,8 @@
 :root {
   --primary: #a6a185;
   --secondary: #ecece1;
+  --font-1: "Ephesis";
+  --font-2: "Quintessential";
 }
 
 @media screen and (max-width: 768px) {

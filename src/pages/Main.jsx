@@ -13,7 +13,7 @@ function Main() {
   const [image, setImage] = useState(null);
   const [facingMode, setFacingMode] = useState("environment");
   const [data, setData] = useState([]);
-  const [showSplash, setShowSplash] = useState(true);
+  const [splash, setSplash] = useState(true);
 
   const stopCamera = useCallback(() => {
     const stream = videoRef.current?.srcObject;
@@ -106,18 +106,11 @@ function Main() {
   }, [showCamera, startCamera, stopCamera]);
 
   useEffect(() => {
-    const fadeTimer = setTimeout(() => {
-      const splash = document.querySelector(".welcoming-page");
-      if (splash) splash.classList.add("hide");
-    }, 2000);
-
-    const removeTimer = setTimeout(() => {
-      setShowSplash(false);
-    }, 3000);
-
+    const timer = setTimeout(() => {
+      setSplash(false);
+    }, 4000);
     return () => {
-      clearTimeout(fadeTimer);
-      clearTimeout(removeTimer);
+      clearTimeout(timer);
     };
   }, []);
 
@@ -174,8 +167,7 @@ function Main() {
           ))}
         </div>
       </div>
-
-      {showSplash && (
+      {splash && (
         <div className="welcoming-page">
           <h1>Welcome to wedding Amir dan Lia</h1>
         </div>

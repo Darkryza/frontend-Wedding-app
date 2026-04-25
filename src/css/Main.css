@@ -13,12 +13,16 @@
     z-index: 1;
     background-color: rgb(35, 35, 35);
     color: white;
-    opacity: 1;
-    transition: opacity 1s ease;
+    animation: splash 2s 2s ease forwards;
   }
 
-  .welcoming-page.hide {
-    opacity: 0;
+  @keyframes splash {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
   }
 
   .welcoming-page h1 {

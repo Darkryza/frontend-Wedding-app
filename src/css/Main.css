@@ -33,8 +33,9 @@
     text-align: center;
     letter-spacing: 0.3rem;
     opacity: 1;
-    color: #fff;
+    color: var(--primary);
     animation: wordSplash 2s ease forwards;
+    font-family: var(--font-2);
   }
 
   @keyframes wordSplash {

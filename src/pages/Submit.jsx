@@ -2,11 +2,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "../css/Submit.css";
 import { useState } from "react";
 import axios from "axios";
+import { MoonLoader } from "react-spinners";
 
 function Submit() {
   const location = useLocation();
   const image = location.state?.image;
 
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({
     nama: "",
     ucapan: "",
@@ -39,6 +41,8 @@ function Submit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setIsLoading(true);
+
     const formData = new FormData();
 
     const imageFile = dataURLtoFile(image, "photo.png");
@@ -57,6 +61,7 @@ function Submit() {
 
       if (res.data.status) {
         alert(res.data.message);
+        setIsLoading(false);
         navigate("/");
       } else {
         alert("Error from server");
@@ -68,6 +73,7 @@ function Submit() {
 
   return (
     <div className="submit-container">
+      <MoonLoader loading={isLoading} />
       {image ? (
         <div className="img-container">
           <img src={image} alt="captured" />

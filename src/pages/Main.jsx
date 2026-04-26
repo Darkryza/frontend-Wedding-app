@@ -3,6 +3,7 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Main.css";
 import axios from "axios";
+import { MoonLoader } from "react-spinners";
 
 function Main() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function Main() {
   const [facingMode, setFacingMode] = useState("environment");
   const [data, setData] = useState([]);
   const [splash, setSplash] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const stopCamera = useCallback(() => {
     const stream = videoRef.current?.srcObject;
@@ -89,6 +91,7 @@ function Main() {
         );
         if (res.data.status) {
           setData(res.data.value);
+          setIsLoading(false);
         } else {
           alert(res.data.message);
         }
@@ -122,6 +125,8 @@ function Main() {
           <h2>Wedding Amir & Lia</h2>
         </div>
 
+        <MoonLoader loading={isLoading} />
+
         <div className="btn-capture-container">
           <button onClick={() => setShowCamera(true)}>Take Photo</button>
         </div>
@@ -136,8 +141,12 @@ function Main() {
             />
 
             <div className="camera-buttons">
-              <button onClick={takePhoto}>Capture</button>
-              <button onClick={switchCamera}>Switch Camera</button>
+              <button onClick={takePhoto}>
+                <span class="material-symbols-outlined">photo_camera</span>
+              </button>
+              <button onClick={switchCamera}>
+                <span class="material-symbols-outlined">flip_camera_ios</span>
+              </button>
             </div>
           </div>
         )}

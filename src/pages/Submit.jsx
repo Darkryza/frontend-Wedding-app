@@ -73,35 +73,39 @@ function Submit() {
 
   return (
     <div className="submit-container">
-      <MoonLoader loading={isLoading} />
-      {image ? (
-        <div className="img-container">
-          <img src={image} alt="captured" />
-        </div>
-      ) : (
-        <p>No image found. Please go back and take a photo.</p>
-      )}
-      <div className="title">
-        <h1>Berikan Ucapan buat pengantin</h1>
-      </div>
-      <form className="submit-form-container" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="nama"
-          placeholder="Tulis nama anda di sini"
-          onChange={handleChange}
-          required
-        />
+      <MoonLoader loading={isLoading} className="loading" />
+      {!isLoading && (
+        <>
+          {image ? (
+            <div className="img-container">
+              <img src={image} alt="captured" />
+            </div>
+          ) : (
+            <p>No image found. Please go back and take a photo.</p>
+          )}
+          <div className="title">
+            <h1>Berikan Ucapan buat pengantin</h1>
+          </div>
+          <form className="submit-form-container" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="nama"
+              placeholder="Tulis nama anda di sini"
+              onChange={handleChange}
+              required
+            />
 
-        <textarea
-          name="ucapan"
-          id="ucapan"
-          placeholder="Berikan ucapan anda di sini"
-          onChange={handleChange}
-          required
-        ></textarea>
-        <button type="submit">Hantar</button>
-      </form>
+            <textarea
+              name="ucapan"
+              id="ucapan"
+              placeholder="Berikan ucapan anda di sini"
+              onChange={handleChange}
+              required
+            ></textarea>
+            <button type="submit">Hantar</button>
+          </form>
+        </>
+      )}
     </div>
   );
 }

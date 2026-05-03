@@ -2,11 +2,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "../css/Submit.css";
 import { useState } from "react";
 import axios from "axios";
+import { MoonLoader } from "react-spinners";
 
 function Submit() {
   const location = useLocation();
   const image = location.state?.image;
 
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({
     nama: "",
     ucapan: "",
@@ -39,6 +41,8 @@ function Submit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setIsLoading(true);
+
     const formData = new FormData();
 
     const imageFile = dataURLtoFile(image, "photo.png");
@@ -57,6 +61,7 @@ function Submit() {
 
       if (res.data.status) {
         alert(res.data.message);
+        setIsLoading(false);
         navigate("/");
       } else {
         alert("Error from server");
@@ -68,34 +73,39 @@ function Submit() {
 
   return (
     <div className="submit-container">
-      {image ? (
-        <div className="img-container">
-          <img src={image} alt="captured" />
-        </div>
-      ) : (
-        <p>No image found. Please go back and take a photo.</p>
-      )}
-      <div className="title">
-        <h1>Berikan Ucapan buat pengantin</h1>
-      </div>
-      <form className="submit-form-container" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="nama"
-          placeholder="Tulis nama anda di sini"
-          onChange={handleChange}
-          required
-        />
+      <MoonLoader loading={isLoading} className="loading" />
+      {!isLoading && (
+        <>
+          {image ? (
+            <div className="img-container">
+              <img src={image} alt="captured" />
+            </div>
+          ) : (
+            <p>No image found. Please go back and take a photo.</p>
+          )}
+          <div className="title">
+            <h1>Berikan Ucapan buat pengantin</h1>
+          </div>
+          <form className="submit-form-container" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="nama"
+              placeholder="Tulis nama anda di sini"
+              onChange={handleChange}
+              required
+            />
 
-        <textarea
-          name="ucapan"
-          id="ucapan"
-          placeholder="Berikan ucapan anda di sini"
-          onChange={handleChange}
-          required
-        ></textarea>
-        <button type="submit">Hantar</button>
-      </form>
+            <textarea
+              name="ucapan"
+              id="ucapan"
+              placeholder="Berikan ucapan anda di sini"
+              onChange={handleChange}
+              required
+            ></textarea>
+            <button type="submit">Hantar</button>
+          </form>
+        </>
+      )}
     </div>
   );
 }

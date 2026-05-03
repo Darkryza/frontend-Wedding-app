@@ -1,7 +1,6 @@
 @media screen and (max-width: 768px) {
   .submit-container {
     width: 100%;
-    height: auto;
   }
   .submit-container .img-container {
     padding: 10px;

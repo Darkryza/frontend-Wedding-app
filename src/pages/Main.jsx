@@ -165,8 +165,21 @@ function Main() {
               </div>
             </div>
           ))}
+          {/* <div className="content">
+            <div className="img">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSANqCIcE2sxuluyx3isRqFIZ_huuAxvtnSEA&s"
+                alt="image"
+              />
+            </div>
+            <div className="text">
+              <h2>Ali</h2>
+              <p>dandjasdn,anlakdnain</p>
+            </div>
+          </div> */}
         </div>
       </div>
+
       {splash && (
         <div className="welcoming-page">
           <h1>Welcome to wedding Amir dan Lia</h1>

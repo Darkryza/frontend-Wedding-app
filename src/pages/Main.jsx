@@ -123,7 +123,7 @@ function Main() {
     return () => {
       clearTimeout(timer);
     };
-  }, []);
+  }, [splash]);
 
   return (
     <>

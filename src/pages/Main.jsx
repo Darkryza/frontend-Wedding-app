@@ -14,7 +14,11 @@ function Main() {
   const [image, setImage] = useState(null);
   const [facingMode, setFacingMode] = useState("environment");
   const [data, setData] = useState([]);
-  const [splash, setSplash] = useState(true);
+  const [splash, setSplash] = useState(() => {
+    if (sessionStorage.getItem("splashShown")) {
+      return false;
+    }
+  });
   const [isLoading, setIsLoading] = useState(true);
 
   const stopCamera = useCallback(() => {
@@ -109,6 +113,10 @@ function Main() {
   }, [showCamera, startCamera, stopCamera]);
 
   useEffect(() => {
+    if (!splash) return;
+
+    sessionStorage.setItem("splashShown", "true");
+
     const timer = setTimeout(() => {
       setSplash(false);
     }, 4000);
@@ -120,15 +128,11 @@ function Main() {
   return (
     <>
       <div className="main-container">
+        <MoonLoader loading={isLoading} />
+
         <div className="title-container">
           <h1>Fanisa</h1>
           <h2>Wedding Amir & Lia</h2>
-        </div>
-
-        <MoonLoader loading={isLoading} />
-
-        <div className="btn-capture-container">
-          <button onClick={() => setShowCamera(true)}>Take Photo</button>
         </div>
 
         {showCamera && (
@@ -163,6 +167,9 @@ function Main() {
         <canvas ref={canvasRef} style={{ display: "none" }} />
 
         <div className="contents-container">
+          <div className="btn-capture-container">
+            <button onClick={() => setShowCamera(true)}>Take Photo</button>
+          </div>
           {data.map((item) => (
             <div className="content" key={item.id}>
               <div className="img">

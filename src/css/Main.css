@@ -75,6 +75,7 @@
     display: flex;
     justify-content: end;
     padding: 10px 20px;
+    width: 100%;
   }
 
   .btn-capture-container button {

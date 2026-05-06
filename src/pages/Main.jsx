@@ -135,6 +135,10 @@ function Main() {
           <h2>Wedding Amir & Lia</h2>
         </div>
 
+        <div className="btn-capture-container">
+          <button onClick={() => setShowCamera(true)}>Take Photo</button>
+        </div>
+
         {showCamera && (
           <div className="camera-container">
             <video
@@ -167,9 +171,6 @@ function Main() {
         <canvas ref={canvasRef} style={{ display: "none" }} />
 
         <div className="contents-container">
-          <div className="btn-capture-container">
-            <button onClick={() => setShowCamera(true)}>Take Photo</button>
-          </div>
           {data.map((item) => (
             <div className="content" key={item.id}>
               <div className="img">

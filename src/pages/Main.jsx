@@ -18,6 +18,7 @@ function Main() {
     if (sessionStorage.getItem("splashShown")) {
       return false;
     }
+    return true;
   });
   const [isLoading, setIsLoading] = useState(true);
 

@@ -1,3 +1,67 @@
+.main-container {
+  width: 100%;
+  height: 100%;
+}
+
+.title-container {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.btn-capture-container {
+  padding: 10px;
+  text-align: right;
+}
+
+.btn-capture-container button {
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 10px;
+  color: #131313;
+  background-color: var(--primary);
+  font-size: 1.5rem;
+  font-family: var(--font-2);
+}
+
+.contents-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.contents-container .content {
+  width: 100%;
+  height: 200px;
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  background-color: var(--secondary);
+  border-radius: 10px;
+  border: 1px solid var(--primary);
+  font-size: 2rem;
+  overflow: hidden;
+}
+
+.contents-container .content .img {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contents-container .content .img img {
+  width: 90%;
+  height: 90%;
+  border: 1px solid black;
+  object-fit: cover;
+}
+
+.contents-container .content .text {
+  padding: 10px 20px;
+}
+
 @media screen and (max-width: 768px) {
   .main-container {
     width: 100%;

@@ -5,6 +5,14 @@
   --font-2: "Quintessential";
 }
 
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url(./assets/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 @media screen and (max-width: 768px) {
   .container {
     width: 100%;
